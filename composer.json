@@ -1,7 +1,7 @@
 {
-    "name": "mileschou/composer-template",
-    "description": "The template for create Composer project",
-    "type": "library",
+    "name": "mileschou/phalog",
+    "description": "Static HTML generator",
+    "type": "project",
     "license": "MIT",
     "keywords": [
         "template"
@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MilesChou\\Template\\": "src"
+            "MilesChou\\Phalog\\": "src"
         }
     },
     "autoload-dev": {
