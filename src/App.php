@@ -4,6 +4,6 @@ namespace MilesChou\Phalog;
 
 use Illuminate\Console\Application as IlluminateApplication;
 
-class Application extends IlluminateApplication
+class App extends IlluminateApplication
 {
 }
