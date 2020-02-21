@@ -40,6 +40,9 @@
             "Tests\\": "tests"
         }
     },
+    "bin": [
+        "phalog"
+    ],
     "config": {
         "preferred-install": "dist",
         "sort-packages": true
