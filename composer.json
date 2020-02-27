@@ -16,6 +16,7 @@
     ],
     "require": {
         "php": ">=7.2",
+        "erusev/parsedown": "^1.7",
         "illuminate/console": "^6",
         "illuminate/events": "^6",
         "illuminate/view": "^6",
@@ -23,7 +24,8 @@
         "mikey179/vfsstream": "^1.6",
         "mileschou/codegener": "^1.0",
         "mileschou/parkdown": "^0.0.1",
-        "phpstan/phpstan": "^0.12.11"
+        "phpstan/phpstan": "^0.12.11",
+        "symfony/yaml": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7 | ^8",
