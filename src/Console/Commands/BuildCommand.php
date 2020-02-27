@@ -1,6 +1,6 @@
 <?php
 
-namespace MilesChou\Phalog\Commands;
+namespace MilesChou\Phalog\Console\Commands;
 
 use Illuminate\Console\Command;
 use MilesChou\Codegener\Traits\Path;

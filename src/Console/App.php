@@ -1,6 +1,6 @@
 <?php
 
-namespace MilesChou\Phalog;
+namespace MilesChou\Phalog\Console;
 
 use Illuminate\Console\Application as IlluminateApplication;
 

@@ -2,9 +2,9 @@
 
 use LaravelBridge\Scratch\Application as LaravelBridge;
 use MilesChou\Codegener\CodegenerServiceProvider;
-use MilesChou\Phalog\App;
-use MilesChou\Phalog\BaseServiceProvider;
-use MilesChou\Phalog\Commands;
+use MilesChou\Phalog\Console\App;
+use MilesChou\Phalog\Console\Commands\BuildCommand;
+use MilesChou\Phalog\Providers\BaseServiceProvider;
 use org\bovigo\vfs\vfsStream;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -21,7 +21,7 @@ return (static function () {
     $container->bootstrap();
 
     $app = new App($container, $container->make('events'), 'dev-master');
-    $app->add(new Commands\BuildCommand());
+    $app->add(new BuildCommand());
 
     return $app;
 })();

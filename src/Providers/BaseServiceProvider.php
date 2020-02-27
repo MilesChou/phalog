@@ -1,6 +1,6 @@
 <?php
 
-namespace MilesChou\Phalog;
+namespace MilesChou\Phalog\Providers;
 
 use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Support\Facades\Event;
