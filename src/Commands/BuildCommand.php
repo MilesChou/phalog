@@ -33,8 +33,9 @@ class BuildCommand extends Command
 
         foreach ($finder as $file) {
             $filename = $file->getFilenameWithoutExtension() . '.html';
+            $pathname = $file->getRelativePath() . '/' . $filename;
 
-            $writer->write($file->getRelativePath() . '/' . $filename, $view->file($file->getPathname())->render());
+            $writer->overwrite($pathname, $view->file($file->getPathname(), ['title' => 'test'])->render());
         }
 
         return 0;
