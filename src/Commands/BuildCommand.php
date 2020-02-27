@@ -3,10 +3,9 @@
 namespace MilesChou\Phalog\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\View\Factory as View;
 use MilesChou\Codegener\Traits\Path;
 use MilesChou\Codegener\Writer;
-use Symfony\Component\Finder\Finder;
+use MilesChou\Phalog\Builders\StaticBuilder;
 
 class BuildCommand extends Command
 {
@@ -16,27 +15,16 @@ class BuildCommand extends Command
 
     protected $signature = 'build {--output-dir=dist} {--input-dir=resources}';
 
-    public function handle(View $view, Writer $writer): int
+    public function handle(StaticBuilder $staticBuilder, Writer $writer): int
     {
         $outputDir = $this->formatPath((string)$this->input->getOption('output-dir'));
         $inputDir = $this->formatPath((string)$this->input->getOption('input-dir'));
 
         $writer->setBasePath($outputDir);
 
-        $finder = new Finder();
-        $finder->files()->name('*.md')->in($inputDir);
+        $contents = $staticBuilder->build($inputDir);
 
-        if (!$finder->hasResults()) {
-            $this->output->warning('No file found');
-            return 1;
-        }
-
-        foreach ($finder as $file) {
-            $filename = $file->getFilenameWithoutExtension() . '.html';
-            $pathname = $file->getRelativePath() . '/' . $filename;
-
-            $writer->overwrite($pathname, $view->file($file->getPathname(), ['title' => 'test'])->render());
-        }
+        $writer->overwriteMass($contents);
 
         return 0;
     }

@@ -2,6 +2,8 @@
 
 namespace MilesChou\Phalog;
 
+use Illuminate\Console\Events\CommandStarting;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Factory as ViewFactory;
 use MilesChou\Parkdown\Bridges\ParsedownMarkdownParser;
@@ -9,11 +11,17 @@ use MilesChou\Parkdown\Bridges\SymfonyYamlParser;
 use MilesChou\Parkdown\Contracts\MarkdownParser;
 use MilesChou\Parkdown\Contracts\YamlParser;
 use MilesChou\Parkdown\Parser as Parkdown;
+use MilesChou\Phalog\Listeners\BootstrapLogger;
 use MilesChou\Phalog\View\Engines\BladeMarkdownEngine;
 use MilesChou\Phalog\View\Engines\MarkdownEngine;
 
 class BaseServiceProvider extends ServiceProvider
 {
+    public function boot(): void
+    {
+        Event::listen(CommandStarting::class, BootstrapLogger::class);
+    }
+
     public function register(): void
     {
         $this->registerParsers();

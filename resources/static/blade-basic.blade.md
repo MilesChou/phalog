@@ -2,7 +2,7 @@
 title: This is title
 ---
 
-## H2 {{ $title }}
+## H2
 
 ### H3
 

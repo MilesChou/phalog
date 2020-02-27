@@ -13,7 +13,7 @@ return (static function () {
     $vfs = vfsStream::setup('view');
 
     $container = (new LaravelBridge())
-        ->setupView(dirname(__DIR__) . '/resources/pages', $vfs->url())
+        ->setupView(dirname(__DIR__) . '/resources/static', $vfs->url())
         ->setupProvider(BaseServiceProvider::class)
         ->setupProvider(CodegenerServiceProvider::class);
 
