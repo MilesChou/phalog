@@ -5,7 +5,7 @@ namespace MilesChou\Phalog\Compilers;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\Compiler;
 use Illuminate\View\Compilers\CompilerInterface;
-use League\CommonMark\Converter;
+use MilesChou\Parkdown\Parser as Markdown;
 
 /**
  * Markdown compiler class.
@@ -13,17 +13,17 @@ use League\CommonMark\Converter;
 class MarkdownCompiler extends Compiler implements CompilerInterface
 {
     /**
-     * @var Converter
+     * @var Markdown
      */
     protected $markdown;
 
     /**
-     * @param Converter $markdown
+     * @param Markdown $markdown
      * @param Filesystem $files
      * @param string $cachePath
      * @return void
      */
-    public function __construct(Converter $markdown, Filesystem $files, string $cachePath)
+    public function __construct(Markdown $markdown, Filesystem $files, string $cachePath)
     {
         parent::__construct($files, $cachePath);
 
@@ -32,9 +32,9 @@ class MarkdownCompiler extends Compiler implements CompilerInterface
 
     public function compile($path)
     {
-        $contents = $this->markdown->convertToHtml($this->files->get($path));
+        $contents = $this->markdown->parse($this->files->get($path));
 
-        $this->files->put($this->getCompiledPath($path), $contents);
+        $this->files->put($this->getCompiledPath($path), $contents->html());
     }
 
     /**
