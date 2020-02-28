@@ -24,3 +24,7 @@ analyse:
 
 coverage: test
 	@if [ "`uname`" = "Darwin" ]; then open build/coverage/index.html; fi
+
+examples:
+	rm -rf dist
+	php bin/phalog.php -vv build
