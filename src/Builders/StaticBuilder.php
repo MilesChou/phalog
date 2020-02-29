@@ -2,10 +2,14 @@
 
 namespace MilesChou\Phalog\Builders;
 
+use Illuminate\Config\Repository;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Factory as View;
 use MilesChou\Codegener\Traits\Path;
 use MilesChou\Codegener\Writer;
+use MilesChou\Parkdown\Parser;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Build the file with static path
@@ -13,6 +17,16 @@ use Symfony\Component\Finder\Finder;
 class StaticBuilder
 {
     use Path;
+
+    /**
+     * @var Repository
+     */
+    private $config;
+
+    /**
+     * @var Parser
+     */
+    private $markdown;
 
     /**
      * @var View
@@ -24,9 +38,16 @@ class StaticBuilder
      */
     private $writer;
 
-    public function __construct(View $view)
+    /**
+     * @param View $view
+     * @param Parser $markdown
+     * @param Repository $config
+     */
+    public function __construct(View $view, Parser $markdown, Repository $config)
     {
         $this->view = $view;
+        $this->markdown = $markdown;
+        $this->config = $config;
     }
 
     /**
@@ -45,23 +66,28 @@ class StaticBuilder
         }
 
         foreach ($finder as $file) {
-            $filename = $file->getFilename();
-            $pathname = $this->normalizeRelativePath($file->getRelativePath(), $filename);
+            $outputPath = $this->getRelativePath($file);
+            $pathname = $file->getPathname();
 
-            yield $pathname => $this->view->file($file->getPathname())->render();
+            $fs = new Filesystem();
+            $content = $fs->get($pathname);
+            $frontMatter = $this->markdown->parse($content)->frontMatter();
+
+            $view = $this->view->file(
+                $pathname,
+                $frontMatter,
+                $this->config->get('global')
+            );
+
+            yield $outputPath => $view->render();
         }
     }
 
-    private function normalizeFilename(string $filename): string
+    private function getRelativePath(SplFileInfo $file): string
     {
-        [$filename] = explode('.', $filename, 2);
+        $relativePath = $file->getRelativePath();
 
-        return $filename;
-    }
-
-    private function normalizeRelativePath(string $relativePath, string $filename): string
-    {
-        $filename = $this->normalizeFilename($filename);
+        $filename = $this->normalizeFilename($file->getFilename());
 
         if ('index' === $filename) {
             $filename .= '.html';
@@ -74,5 +100,12 @@ class StaticBuilder
         }
 
         return $relativePath . '/' . $filename;
+    }
+
+    private function normalizeFilename(string $filename): string
+    {
+        [$filename] = explode('.', $filename, 2);
+
+        return $filename;
     }
 }
