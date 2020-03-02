@@ -24,7 +24,7 @@
         "laravel-bridge/scratch": "^0.6.0",
         "mikey179/vfsstream": "^1.6",
         "mileschou/codegener": "^1.0",
-        "mileschou/parkdown": "^0.0.1",
+        "mileschou/parkdown": "^0.0.3",
         "phpstan/phpstan": "^0.12.11",
         "symfony/yaml": "^5.0"
     },

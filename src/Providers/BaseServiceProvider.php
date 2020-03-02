@@ -33,10 +33,6 @@ class BaseServiceProvider extends ServiceProvider
     {
         $this->app->bind(MarkdownParser::class, ParsedownMarkdownParser::class);
         $this->app->bind(YamlParser::class, SymfonyYamlParser::class);
-
-        $this->app->singleton(Parkdown::class, function () {
-            return new Parkdown($this->app);
-        });
     }
 
     private function afterResolvingViewService(): void

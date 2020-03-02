@@ -3,7 +3,6 @@
 namespace MilesChou\Phalog\Builders;
 
 use Illuminate\Config\Repository;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Factory as View;
 use MilesChou\Codegener\Traits\Path;
 use MilesChou\Codegener\Writer;
@@ -66,20 +65,17 @@ class StaticBuilder
         }
 
         foreach ($finder as $file) {
-            $outputPath = $this->getRelativePath($file);
             $pathname = $file->getPathname();
 
-            $fs = new Filesystem();
-            $content = $fs->get($pathname);
-            $frontMatter = $this->markdown->parse($content)->frontMatter();
+            $document = $this->markdown->parseFile($pathname);
 
             $view = $this->view->file(
                 $pathname,
-                $frontMatter,
+                $document->frontMatter(),
                 $this->config->get('global')
             );
 
-            yield $outputPath => $view->render();
+            yield $this->getRelativePath($file) => $view->render();
         }
     }
 
