@@ -19,7 +19,8 @@ return (static function () {
         ->useConfigurationLoader()
         ->setupView(dirname(__DIR__) . '/resources/static', $vfs->url())
         ->setupProvider(BaseServiceProvider::class)
-        ->setupProvider(CodegenerServiceProvider::class);
+        ->setupProvider(CodegenerServiceProvider::class)
+        ->withFacades();
 
     $container->instance(vfsStream::class, $vfs);
     $container->bind(Repository::class, 'config');

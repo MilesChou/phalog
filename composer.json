@@ -21,7 +21,7 @@
         "illuminate/events": "^7",
         "illuminate/log": "^7",
         "illuminate/view": "^7",
-        "laravel-bridge/scratch": "^0.7.0",
+        "laravel-bridge/scratch": "^1.0.1",
         "mikey179/vfsstream": "^1.6",
         "mileschou/codegener": "^1.2",
         "mileschou/parkdown": "^0.1",
