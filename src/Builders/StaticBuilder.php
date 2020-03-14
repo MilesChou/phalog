@@ -72,7 +72,7 @@ class StaticBuilder
             $view = $this->view->file(
                 $pathname,
                 $document->frontMatter(),
-                $this->config->get('global')
+                $this->config->get('app')
             );
 
             yield $this->getRelativePath($file) => $view->render();

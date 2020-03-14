@@ -17,7 +17,7 @@ return (static function () {
 
     $container = (new LaravelBridge($cwd))
         ->useConfigurationLoader()
-        ->setupView(dirname(__DIR__) . '/resources/static', $vfs->url())
+        ->setupView($vfs->url(), $vfs->url())
         ->setupProvider(BaseServiceProvider::class)
         ->setupProvider(CodegenerServiceProvider::class)
         ->withFacades();

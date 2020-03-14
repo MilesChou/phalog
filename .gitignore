@@ -43,3 +43,6 @@ Desktop.ini
 /build
 /dist
 /.phpunit.result.cache
+
+# Env files
+.env.example
