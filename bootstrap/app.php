@@ -23,7 +23,7 @@ return (static function () {
         ->withFacades();
 
     $container->instance(vfsStream::class, $vfs);
-    $container->bind(Repository::class, 'config');
+    $container->alias('config', Repository::class);
 
     $container->bootstrap();
 

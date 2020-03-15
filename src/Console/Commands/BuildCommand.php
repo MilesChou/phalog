@@ -13,7 +13,7 @@ class BuildCommand extends Command
 
     protected $name = 'build';
 
-    protected $signature = 'build {--output-dir=dist} {--input-dir=resources}';
+    protected $signature = 'build {--output-dir=dist} {--input-dir=}';
 
     public function handle(StaticBuilder $staticBuilder, Writer $writer): int
     {

@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-.PHONY: all clean clean-all check test analyse coverage
+.PHONY: all clean clean-all check test analyse coverage example
 
 # ---------------------------------------------------------------------
 
@@ -25,6 +25,6 @@ analyse:
 coverage: test
 	@if [ "`uname`" = "Darwin" ]; then open build/coverage/index.html; fi
 
-examples:
+example:
 	rm -rf dist
-	php bin/phalog.php -vv build
+	php bin/phalog.php -vv --input-dir=examples build

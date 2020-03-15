@@ -41,8 +41,10 @@ Desktop.ini
 
 # Artifacts files
 /build
-/dist
 /.phpunit.result.cache
+
+# Example files
+/dist
 
 # Env files
 .env.example
